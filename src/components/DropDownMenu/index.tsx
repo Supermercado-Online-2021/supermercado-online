@@ -1,7 +1,8 @@
 
-import { useEffect, useState } from 'react';
-
-import { MenuContainer, DropDown, DropDownTitle, DropDownItem, DropDownMenuLink } from './styles';
+import { 
+    MenuContainer, 
+    DropDown, DropDownTitle, DropDownItem, DropDownMenuLink 
+} from './styles';
 
 import connector, { Props } from './connector';
 
@@ -26,4 +27,3 @@ function DropDownMenu({ visible , categories }: Props) {
 }
 
 export default connector(DropDownMenu);
-

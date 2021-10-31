@@ -12,8 +12,9 @@ function ProductsByCategory( { match, loadProducts }: Props ) {
     
     useEffect( () => {
         const { id } = match.params;
+        
         loadProducts( Number(id) );
-    }, [ match.params ]);
+    }, [match.params.id] );
 
     return(
         <TemplateProducts>
