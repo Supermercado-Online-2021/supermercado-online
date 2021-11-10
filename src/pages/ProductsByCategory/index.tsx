@@ -8,13 +8,13 @@ import connector, { Props } from "./connector";
 
 
 
-function ProductsByCategory( { match, loadProducts }: Props ) {
+function ProductsByCategory( { page, limit, match, loadProducts }: Props ) {
     
     useEffect( () => {
         const { id } = match.params;
         
         loadProducts( Number(id) );
-    }, [match.params.id] );
+    }, [ page, limit, match.params.id] );
 
     return(
         <TemplateProducts>
