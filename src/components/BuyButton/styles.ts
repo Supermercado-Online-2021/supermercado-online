@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 
-export const BuyProduct = styled.button<{ remove?: boolean }>`
+export const BuyProduct = styled.button<{ remove?: boolean, size?: number }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +14,7 @@ export const BuyProduct = styled.button<{ remove?: boolean }>`
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: ${({ size }) => size ? size: 16 }px;
 
     &:disabled {
         background: #ccc;

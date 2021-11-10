@@ -7,7 +7,6 @@ import { Main } from '../../components/Main';
 import Header from "../../components/Header";
 
 
-
 function TemplatePage( { visibleHeader, checkTokenAuthentication, column, children }: Props ) {
     useEffect( () => visibleHeader(), [visibleHeader]);
 

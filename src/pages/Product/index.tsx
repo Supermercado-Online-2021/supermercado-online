@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import BuyProductButton  from '../../components/BuyButton';
+
 import axios from '../../config/axios.config';
 import { AxiosError, AxiosResponse } from 'axios';
 
@@ -10,18 +12,26 @@ import Product from '../../types/objects/Product';
 
 import connector, { Props } from './connector';
 
-import {} from './styles';
+import {Container, Column } from './styles';
+import { Figure } from './styles';
+import { Span } from './styles';
 
 
 
-function ProductById({ token, match }: Props ){
+function ProductById({ token, match, addProductInCart, removeProductInCart }: Props ){
     const [ product, setProduct ] = useState<Product>();
 
     useEffect( () => {
         (async () => {
             axios.get<any, AxiosResponse<Product>>( `/product/${match.params.id}`, { headers: {token} })
                 .then( result => {
-                    setProduct(result.data);
+                    setProduct({
+                        ...result.data,
+                        image_src: result.data.image_src?.replace( '274-274', '720-720' ),
+                        cart: (result.data.Carts !== undefined && result.data.Carts?.id !== null) || false
+                    });
+
+                    console.log(result.data)
                 })
                 .catch( (e: AxiosError<{ message: string }>) => {
                     alert(e.response?.data.message);
@@ -29,11 +39,40 @@ function ProductById({ token, match }: Props ){
         })();
     }, []);
 
+    const onClickAddProduct = () => {
+        if(product)
+            product?.cart 
+                ? removeProductInCart(product.id)
+                : addProductInCart(product.id)
+    }
+
 
 
     return(
         <TemplatePage>
-            <span>{product?.name}</span>
+            <Container>
+                <Column>
+                    <Figure>
+                        <img src={ product?.image_src } alt={ product?.name } />
+                    </Figure>
+                </Column>
+                <Column column={true}>
+                    <h3>{ product?.name }</h3>
+                    
+                    <Span>
+                        {new Intl.NumberFormat('pt-br', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        }).format(product?.price || 0)}
+                    </Span>
+                    { product && <BuyProductButton 
+                        product={product as Product} 
+                        cart={product?.cart || false} 
+                        onClick={onClickAddProduct}
+                        size={22}
+                    />}
+                </Column>
+            </Container>
         </TemplatePage>
     );
 }
