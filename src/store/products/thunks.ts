@@ -1,7 +1,7 @@
 
 import axios from "../../config/axios.config";
 
-import ActionsProducts from "./actions";
+import * as ActionsProducts from "./actions";
 import AxiosResponseProducts from "../../types/axiosResponse/AxiosResponseProducts";
 
 import createLoading from '../loading/createLoading';
