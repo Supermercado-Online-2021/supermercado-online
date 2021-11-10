@@ -25,7 +25,7 @@ export const INITIAL_PRODUCTS_STATE: Products = {
     data: [],
     page: 4,
     limit: 30,
-    count: 0
+    count: 0,
 }
 
 export const INITIAL_ACCOUNT_USER: User = {}

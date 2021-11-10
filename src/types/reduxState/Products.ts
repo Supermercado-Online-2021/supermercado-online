@@ -10,7 +10,8 @@ interface Products {
     count: number,
     offset?: number,
     term?: string,
-    auth?: boolean
+    auth?: boolean,
+    product?: Product
 }
 
 export default Products;
