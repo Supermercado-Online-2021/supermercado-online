@@ -17,5 +17,5 @@ export const tokenAuthentication = ( auth: boolean ) => ({
 export const signOutAuthentication = () => ({
     type: AuthenticationTypes.SIGNOUT_AUTHENTICATION,
     auth: false, 
-    token: ''   
+    token: ''
 });
