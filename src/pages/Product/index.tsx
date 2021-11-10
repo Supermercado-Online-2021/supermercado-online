@@ -30,20 +30,19 @@ function ProductById({ token, match, addProductInCart, removeProductInCart }: Pr
                         image_src: result.data.image_src?.replace( '274-274', '720-720' ),
                         cart: (result.data.Carts !== undefined && result.data.Carts?.id !== null) || false
                     });
-
-                    console.log(result.data)
                 })
                 .catch( (e: AxiosError<{ message: string }>) => {
                     alert(e.response?.data.message);
                 });
         })();
-    }, []);
+    }, [ addProductInCart, removeProductInCart ]);
 
     const onClickAddProduct = () => {
         if(product)
-            product?.cart 
-                ? removeProductInCart(product.id)
-                : addProductInCart(product.id)
+            if(product.cart && product.Carts ) 
+                removeProductInCart(product.Carts.id)
+            else
+                addProductInCart(product.id)
     }
 
 
