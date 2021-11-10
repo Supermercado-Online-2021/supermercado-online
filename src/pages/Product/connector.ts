@@ -10,7 +10,12 @@ const mapStateToProps = ( state: GlobalState ) => ({
     token: state.authentication.token
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: any ) => ({
+    addProductInCart: (id: number) => dispatch(),
+    removeProductInCart: (id: number) => dispatch()
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 
 

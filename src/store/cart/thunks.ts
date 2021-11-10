@@ -31,7 +31,7 @@ export const findCartProducts = () =>
         dispatch(CartActions.setCart(data));
     }
 
-export const addProductInCart = (product_id: number, index: number) =>
+export const addProductInCart = (product_id: number, index?: number) =>
     async (dispatch: ThunkGlobalDispatch, getState: getGlobalState) => {
         const { token } = getState().authentication;
 
@@ -41,7 +41,7 @@ export const addProductInCart = (product_id: number, index: number) =>
             { headers: { token } }
         );
 
-        if (status === 201) {
+        if (status === 201 && index ) {
             dispatch(ProductsActions
                 .updateProductByIndex(index, {
                     id: product_id,
@@ -51,7 +51,7 @@ export const addProductInCart = (product_id: number, index: number) =>
         }
     }
 
-export const removeProductInCart = (id: number, index: number) =>
+export const removeProductInCart = (id: number, index?: number) =>
     async (dispatch: ThunkGlobalDispatch, getState: getGlobalState) => {
         const state = getState();
         const { token } = state.authentication;
@@ -62,7 +62,7 @@ export const removeProductInCart = (id: number, index: number) =>
             { headers: { token } }
         );
 
-        if (status === 200) {
+        if (status === 200 && index ) {
             dispatch(ProductsActions
                 .updateProductByIndex(index, {
                     id: data[index].id,

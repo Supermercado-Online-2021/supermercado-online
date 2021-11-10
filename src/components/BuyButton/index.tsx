@@ -13,13 +13,19 @@ interface Props {
     product: Product,
     cart: boolean,
     onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+    size?: number 
 }
 
 
 
-function BuyProductButton({ product, cart, onClick }: Props) {
+function BuyProductButton({ product, cart, size, onClick }: Props) {
     return(
-        <BuyProduct onClick={onClick} remove={cart} disabled={product.amount===0} >
+        <BuyProduct 
+            onClick={onClick} 
+            remove={cart} 
+            disabled={product.amount===0} 
+            size={size}
+        >
             { !cart && <FaCartPlus style={{ marginRight: 8 }} />}
             { cart && <FaTrash style={{ marginRight: 8 }} /> }
 
