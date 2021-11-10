@@ -1,5 +1,5 @@
 
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 import connector, {Props} from "./connector";
 

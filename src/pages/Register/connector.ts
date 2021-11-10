@@ -11,7 +11,7 @@ const mapStateToProps = (state: GlobalState) => ({
 
 const mapDispathToProps = (dispatch: any) => ({
     ocultHeader: () => dispatch(setHeaderView(false))
-})
+});
 
 const connector = connect( mapStateToProps, mapDispathToProps );
 

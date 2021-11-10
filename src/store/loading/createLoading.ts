@@ -1,9 +1,4 @@
 
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-
-import GlobalState from '../../types/reduxState/GlobalState';
-
 import * as LoadingAction from './actions';
 
 import { ThunkGlobalDispatch, getGlobalState } from '../ThunkTypes';

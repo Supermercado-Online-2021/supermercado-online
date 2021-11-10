@@ -1,52 +1,31 @@
 
 import { useEffect } from "react";
-import { FaPlus, FaTrash, FaCartPlus } from "react-icons/fa";
-import BuyProductButton from "../../components/BuyButton";
+import { FaPlus } from "react-icons/fa";
 
 import TemplateAccount from "../../templates/TemplateAccount";
 
-import Product from "../../types/objects/Product";
-
 import connector, { Props } from "./connector";
 
+import FavoriteProduct from "../../components/FavoriteProduct";
+
 import { 
-    ProductContainerColumn, ListProductContainer, ProductContainer, 
-    ProductImage, ProductName, Remove,
-    IncrementFavorites, WishlistEmpty
+    ListProductContainer,
+    IncrementFavorites, 
+    WishlistEmpty
 }from './styles';
 
 
 
-function AccountFavorites( { auth, favorites, loadFavorites, removeProduct, incrementFavorites, resetFavorites }: Props ) {
+function AccountFavorites( { auth, favorites, loadFavorites, incrementFavorites, resetFavorites }: Props ) {
     
     useEffect( () => {
         if(auth) {
             resetFavorites();
             loadFavorites();
         }
-    }, []);
+    }, [auth]);
 
 
-
-    const FavoriteProduct = ({product, index}: { product: Product, index: number} )=> (<ProductContainer>
-        <ProductContainerColumn>
-            <ProductImage src={product.image_src} />
-            <ProductName>
-                {product.name}
-            </ProductName>
-        </ProductContainerColumn>
-
-        <ProductContainerColumn>
-            <Remove onClick={ () => removeProduct(product.id, index ) }>
-                <FaTrash size={22} />
-            </Remove>
-            <BuyProductButton
-                onClick={ () => {} }
-                cart={false} 
-                product={product}  
-            />
-        </ProductContainerColumn>
-    </ProductContainer>);
 
     return(
         <TemplateAccount subtitle="Lista de Desejos">
@@ -54,8 +33,12 @@ function AccountFavorites( { auth, favorites, loadFavorites, removeProduct, incr
             {favorites.count === 0 && <WishlistEmpty>Nenhum produto favoritado.</WishlistEmpty>}
 
             <ListProductContainer>
-                { favorites && favorites.data?.map( (product, index) => 
-                    (<FavoriteProduct key={`favorites___${index}`}  product={product.Product} index={index} />)
+                { favorites && favorites.data?.map( (favorite, index) => 
+                    (<FavoriteProduct  
+                        product={favorite.Product} 
+                        index={index} 
+                        cart={(favorite.Product.Carts !== undefined && favorite.Product.Carts?.id !== null) || false}
+                    />)
                 )}
 
                 { favorites.count !== favorites.data.length && <IncrementFavorites 

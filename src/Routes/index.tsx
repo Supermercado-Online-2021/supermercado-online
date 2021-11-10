@@ -26,6 +26,7 @@ import AccountAddresses from '../pages/AccountAddresses';
 import AccountAddressesRegister from '../pages/AccountAddressesRegister';
 import AccountCart from '../pages/AccountCart';
 import Loading from '../pages/Loading';
+import AccountUserUpdate from '../pages/accountUserUpdate';
 
 
 
@@ -33,7 +34,7 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
 
     useEffect(() => {
         tokenAuthentication();
-    }, [tokenAuthentication]);
+    }, []);
 
     useEffect(() => {
         auth
@@ -69,6 +70,9 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
                 
                 <Route exact path="/account">
                     <Account />
+                </Route>
+                <Route exact path="/account/update">
+                    <AccountUserUpdate />
                 </Route>
                 <Route exact path="/account/favorites">
                     <AccountFavorites />

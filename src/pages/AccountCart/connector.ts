@@ -2,7 +2,8 @@
 import { connect, ConnectedProps } from 'react-redux';
 import GlobalState from '../../types/reduxState/GlobalState';
 
-import * as thunksCart from '../../store/cart/thunks'
+import * as thunksCart from '../../store/cart/thunks';
+import * as ActionsProducts from '../../store/products/actions';
 
 
 
@@ -14,7 +15,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     loadCart: () => dispatch( thunksCart.findCartProducts() ),
     
     removeProductInCart: (id: number, index: number) => 
-        dispatch( thunksCart.removeProductInCart(id, index) )
+        dispatch( thunksCart
+            .removeProductInCart(id, index, ActionsProducts.updateProductByIndex ) )
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

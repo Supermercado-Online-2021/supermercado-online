@@ -15,7 +15,7 @@ function ProductsByName({ match, page, limit, term, findProductsByName }: Props 
         const { name } = match.params;
 
         findProductsByName(name);
-    }, [page, limit]);
+    }, [page, limit, match.params.name]);
 
 
     return(

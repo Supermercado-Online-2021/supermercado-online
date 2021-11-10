@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import connector, {Props} from './connector';
 

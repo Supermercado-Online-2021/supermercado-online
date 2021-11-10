@@ -1,5 +1,5 @@
 
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { Link } from 'react-router-dom';
 
@@ -22,8 +22,8 @@ export const MenuContainer = styled.nav<{ visible: boolean }>`
     width: 100%;
     height: calc( 100vh - 60px );
 
-    border-left: 1px solid #efefef;
-    box-shadow: -2px 0 8px #efefef;
+    border-left: 1px solid ${ ({ theme }) => theme.colors.third.main };
+    box-shadow: -2px 0 8px ${ ({ theme }) => theme.colors.third.main };
 
     transition: all 200ms ease-in-out;
 `;
@@ -41,14 +41,14 @@ export const DropDown = styled.section`
 `;
 
 export const DropDownTitle = styled.h4`
-    background: #067BF9;
-    color: white;
+    background: ${ ({ theme }) => theme.colors.primary.main };
+    color: ${ ({ theme }) => theme.colors.primary.highlight };
     padding: 8px 16px;
     font-size: 18px;
 `
 
 export const DropDownItem = styled.article`
-    border: 1px solid #efefef;
+    border: 1px solid ${ ({ theme }) => theme.colors.third.main };
     padding: 8px 16px;
     margin: 0 12px;
 `;
