@@ -1,6 +1,8 @@
 
 import { connect, ConnectedProps } from 'react-redux';
 
+import { RouteComponentProps } from 'react-router';
+
 import * as ThunkHeader from '../../store/header/thunk';
 import * as ActionHeader from '../../store/header/actions';
 import GlobalState from '../../types/reduxState/GlobalState';
@@ -23,6 +25,8 @@ const connector = connect( mapStateToProps, mapDispatchToProps );
 
 
 
-export type Props = ConnectedProps<typeof connector>;
+
+
+export type Props = ConnectedProps<typeof connector> & RouteComponentProps<any>;
 
 export default connector;

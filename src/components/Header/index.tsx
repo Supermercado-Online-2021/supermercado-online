@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { FaUser, FaHeart, FaCartPlus, FaBars, FaSearch } from 'react-icons/fa';
 
@@ -21,7 +21,7 @@ import DropDownAuthenticated from '../DropDown/DropDownAuthenticated';
 
 
 
-function Header( { auth, view, loadSuggestions, loadCategories, clearSuggestions }: Props ) {
+function Header( { auth, view, match, loadSuggestions, loadCategories, clearSuggestions }: Props ) {
     const [ name, setName ] = useState<string>("");
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
@@ -33,15 +33,23 @@ function Header( { auth, view, loadSuggestions, loadCategories, clearSuggestions
     }, []); 
 
     useEffect( () => {
+        setVisibleMenu(false);
+    }, [match.params]);
+
+    useEffect( () => {
         if(name.length >= 3)
             loadSuggestions(name);
     }, [name, loadSuggestions]);
+
+
 
     const onSubmitSearchProductName = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         window.location.href=`/products/name/${name}`
     }
+
+
 
     return(
         <HeaderContainer>
@@ -111,4 +119,4 @@ function Header( { auth, view, loadSuggestions, loadCategories, clearSuggestions
     );
 }
 
-export default connector(Header);
+export default connector(withRouter(Header));

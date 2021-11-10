@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
 
-    background: #f13d4c;
+    background: ${ ({ theme }) => theme.colors.second.main };
     color: white;
 
     width: 100%;
@@ -80,7 +80,6 @@ export const IconContainer = styled.li`
         margin-left: 16px;
     }
 `;
-
 
 export const Username = styled.span`
     font-size: 14px;
