@@ -18,7 +18,7 @@ import { Span } from './styles';
 
 
 
-function ProductById({ token, match }: Props ){
+function ProductById({ token, match, addProductInCart, removeProductInCart }: Props ){
     const [ product, setProduct ] = useState<Product>();
 
     useEffect( () => {
@@ -27,14 +27,23 @@ function ProductById({ token, match }: Props ){
                 .then( result => {
                     setProduct({
                         ...result.data,
-                        image_src: result.data.image_src?.replace( '274-274', '720-720' )
+                        image_src: result.data.image_src?.replace( '274-274', '720-720' ),
+                        cart: (result.data.Carts !== undefined && result.data.Carts?.id !== null) || false
                     });
                 })
                 .catch( (e: AxiosError<{ message: string }>) => {
                     alert(e.response?.data.message);
                 });
         })();
-    }, []);
+    }, [ addProductInCart, removeProductInCart ]);
+
+    const onClickAddProduct = () => {
+        if(product)
+            if(product.cart && product.Carts ) 
+                removeProductInCart(product.Carts.id)
+            else
+                addProductInCart(product.id)
+    }
 
 
 
@@ -57,8 +66,8 @@ function ProductById({ token, match }: Props ){
                     </Span>
                     { product && <BuyProductButton 
                         product={product as Product} 
-                        cart={false} 
-                        onClick={ ()=> {}}
+                        cart={product?.cart || false} 
+                        onClick={onClickAddProduct}
                         size={22}
                     />}
                 </Column>
