@@ -10,17 +10,19 @@ import Product from '../../types/objects/Product';
 
 
 
-const mapStateToProps = (state: GlobalState ) => ({});
+const mapStateToProps = (state: GlobalState ) => ({
+    favorites: state.account.favorites
+});
 
 const mapDispatchToProps = (dispatch: any) => ({
     removeProduct: (id: number, index: number) => 
         dispatch(FavoritesThunks.removeFavoriteFromList(id, index)),
 
-    addProductInCart: (product_id: number, index: number) => 
-        dispatch( ThunksCart.addProductInCart(product_id, index, FavoritesActions.updateProductByIndex ) ),
+    addProductInCart: (product_id: number) => 
+        dispatch( ThunksCart.addProductInCart(product_id, FavoritesActions.updateProductById) ),
 
-    removeProductInCart: (id: number, index: number) =>
-        dispatch( ThunksCart.removeProductInCart(id, index, FavoritesActions.updateProductByIndex )) 
+    removeProductInCart: (cart_id: number) =>
+        dispatch( ThunksCart.removeProductInCart(cart_id, FavoritesActions.updateProductById)) 
 });
 
 const connector = connect(mapStateToProps,mapDispatchToProps);
@@ -30,7 +32,6 @@ const connector = connect(mapStateToProps,mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export interface Props extends PropsFromRedux {
-    product: Product,
     index: number,
     cart: boolean
 }

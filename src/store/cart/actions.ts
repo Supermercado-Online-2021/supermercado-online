@@ -29,9 +29,9 @@ export const addCart = (cart: Cart) => ({
     cart
 });
 
-export const removeCartByIndex = (index: number) => ({
+export const removeCartById = (id: number) => ({
     type: CartTypes.REMOVE_CART,
-    index
+    id
 });
 
 export const resetCart = () => ({

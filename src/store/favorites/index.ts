@@ -47,22 +47,26 @@ function favoriteReducer( state: Favorites = INITIAL_ACCOUNT_FAVORITES, action: 
                 data: [ ...state.data, ...increment ]
             }
         case FavoritesTypes.UPDATE_FAVORITE_PRODUCT:
-            const { index, product } = action;
-            const copy = [ ...state.data ];
+            const { product } = action;
 
-            console.log( index, product );
-
-            if( index !== undefined && product && copy[index] ) {
-                copy[index].Product = {
-                    ...copy[index].Product,
-                    ...product
-                };
+            console.log(product)
+            
+            if( product !== undefined ) {
+                return {
+                    ...state,
+                    data: state.data.filter( favorite => favorite.product_id !== product.id 
+                        ? favorite 
+                        : { ...favorite, Product: {
+                            ...favorite.Product,
+                            Carts: {
+                                id: product.Carts?.id 
+                            }
+                        }}
+                    )
+                }
             }
 
-            return {
-                ...state,
-                data: [ ...copy ]
-            }
+            return { ...state }
         default: 
             return state;
     }

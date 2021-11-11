@@ -22,14 +22,12 @@ export const findFavoritesProducts = () =>
             const state = getState();
             const { token } = state.authentication;
 
-            console.log( state, token );
-
             const { data } = await axios.get<Favorites>(`/favorites/user/`, {
                 headers: { token },
                 params: {
                     page: state.account?.favorites?.page || 1,
-                    limit: state.account?.favorites?.limit || 10,
-                    fields: ['id', 'name', 'image_src' ]
+                    limit: state.account?.favorites?.limit || 10
+                    // fields: ['id', 'name', 'image_src', ]
                 }
             });
 
@@ -40,7 +38,7 @@ export const findFavoritesProducts = () =>
         }
     }
 
-export const toggleFavoriteProduct = (id: number, index: number) =>
+export const toggleFavoriteProduct = (id: number) =>
     async (dispatch: ThunkDispatch<GlobalState, void, AnyAction>, getState: () => GlobalState) => {
         try {
             const { token } = getState().authentication;
@@ -49,7 +47,7 @@ export const toggleFavoriteProduct = (id: number, index: number) =>
                 .post<any, any>(`/favorites/product/${id}`, {}, { headers: { token } });
 
             dispatch(ActionsProducts
-                .updateProductByIndex(index, { id, Favorites: data }));
+                .updateProductById({ id, Favorites: data }));
         }catch(e) {
             const err = e as AxiosError<{ message: string }>;
             alert(err.response?.data.message);

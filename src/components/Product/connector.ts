@@ -16,13 +16,13 @@ const mapStateToProps = (state: GlobalState) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
     toggleFavorite: (id: number, index: number ) => 
-        dispatch( ThunksFavorite.toggleFavoriteProduct(id,index) ),
+        dispatch( ThunksFavorite.toggleFavoriteProduct(id) ),
         
     addProductInCart: (product_id: number, index: number) => 
-        dispatch( ThunksCart.addProductInCart(product_id, index, ActionsProducts.updateProductByIndex ) ),
+        dispatch( ThunksCart.addProductInCart(product_id, ActionsProducts.updateProductById ) ),
 
     removeProductInCart: (id: number, index: number) =>
-        dispatch( ThunksCart.removeProductInCart(id, index, ActionsProducts.updateProductByIndex )) 
+        dispatch( ThunksCart.removeProductInCart(id, ActionsProducts.updateProductById )) 
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

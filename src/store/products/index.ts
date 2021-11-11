@@ -1,5 +1,6 @@
 
 import { Action } from 'redux';
+import { compileFunction } from 'vm';
 import Product from '../../types/objects/Product';
 
 import Products from '../../types/reduxState/Products';
@@ -15,7 +16,6 @@ export interface ActionProducts extends Action {
         page: number
     },
     update?: {
-        index: number,
         product: Product
     }
 };
@@ -53,15 +53,14 @@ function productsReducer( state: Products = INITIAL_PRODUCTS_STATE, action: Acti
             const { update } = action;
 
             if( update ) {
-                const { index, product } = update;
-
-                const copy = [ ...state.data ];
-                if(copy[index])
-                    copy[index] = { ...copy[index], ...product };
-
+                const { product } = update;
+             
                 return {
                     ...state,
-                    data: copy
+                    data: state.data.map( item => item.id === product.id 
+                        ? { ...item, ...product } 
+                        : item
+                    )
                 };
             }
 

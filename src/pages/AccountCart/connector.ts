@@ -14,9 +14,9 @@ const mapStateToProps = (state: GlobalState) => ({
 const mapDispatchToProps = (dispatch: any) => ({
     loadCart: () => dispatch( thunksCart.findCartProducts() ),
     
-    removeProductInCart: (id: number, index: number) => 
+    removeProductInCart: (id: number) => 
         dispatch( thunksCart
-            .removeProductInCart(id, index, ActionsProducts.updateProductByIndex ) )
+            .removeProductInCart(id) )
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

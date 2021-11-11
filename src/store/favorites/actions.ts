@@ -20,9 +20,8 @@ export const setFavorites = (favorites: Favorites): ActionFavorite => ({
     }
 });
 
-export const updateProductByIndex = ( index: number, product: Product ) => ({
+export const updateProductById = (product: Product ) => ({
     type: FavoritesTypes.UPDATE_FAVORITE_PRODUCT,
-    index,
     product
 });
 

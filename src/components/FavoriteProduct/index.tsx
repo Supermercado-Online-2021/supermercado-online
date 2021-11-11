@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import BuyProductButton from "../../components/BuyButton";
 
@@ -13,14 +14,24 @@ import {
 
 
 
-function FavoriteProduct( { product, index, cart, removeProduct, removeProductInCart, addProductInCart }: Props ) {
+function FavoriteProduct( { favorites, index, cart, removeProduct, removeProductInCart, addProductInCart }: Props ) {
+    const [ product, setProduct ] = useState(favorites.data[index].Product);
+
+    useEffect( () => {
+        setProduct(favorites.data[index].Product)
+    }, [favorites]);
+
+    useEffect( () => {
+        console.log(product.Carts)
+    }, [product] );
+
 
     const onClickBuyButton = () => {
         const { id, Carts } = product;
 
         cart && Carts
-            ? removeProductInCart(Carts.id, index)
-            : addProductInCart(id, index)
+            ? removeProductInCart(Carts.id)
+            : addProductInCart(id)
     }
 
     return(<ProductContainer>
@@ -32,15 +43,15 @@ function FavoriteProduct( { product, index, cart, removeProduct, removeProductIn
         </ProductContainerColumn>
 
         <ProductContainerColumn>
-            <Remove onClick={ () => removeProduct(product.id, index ) }>
+            <Remove onClick={() => removeProduct(product.id, index ) }>
                 <FaTrash size={22} />
             </Remove>
 
-            <BuyProductButton
+            {!cart && <BuyProductButton
                 onClick={ onClickBuyButton }
                 cart={cart} 
                 product={product}  
-            />
+            />}
         </ProductContainerColumn>
     </ProductContainer>);
 }

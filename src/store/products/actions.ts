@@ -20,10 +20,9 @@ export const setPage = (page: number): ActionProducts => ({
     }
 });
 
-export const updateProductByIndex = ( index: number, product: Product ): ActionProducts => ({
+export const updateProductById = ( product: Product ): ActionProducts => ({
     type: ProductsTypes.UPDATE_PRODUCT,
     update: {
-        index,
         product
     }
 });

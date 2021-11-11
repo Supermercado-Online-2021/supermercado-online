@@ -23,7 +23,7 @@ function AccountCart( {loadCart, removeProductInCart, cart }: Props ) {
 
 
 
-    const CartProduct = ({product, index, id}: { product: Product, index: number, id: number} )=> (<ProductContainer>
+    const CartProduct = ({product, id}: { product: Product, id: number} )=> (<ProductContainer>
         <ProductContainerColumn>
             <CheckList type="checkbox" value={product.id} />
             
@@ -35,7 +35,7 @@ function AccountCart( {loadCart, removeProductInCart, cart }: Props ) {
         </ProductContainerColumn>
 
         <ProductContainerColumn>
-            <Remove onClick={ () => removeProductInCart( id, index ) }>
+            <Remove onClick={ () => removeProductInCart(id) }>
                 <FaTrash size={22} />
             </Remove>
         </ProductContainerColumn>
@@ -53,7 +53,6 @@ function AccountCart( {loadCart, removeProductInCart, cart }: Props ) {
                     (<CartProduct 
                         product={product.Product}
                         id={product.id}
-                        index={index} 
                     />)
                 )}
 

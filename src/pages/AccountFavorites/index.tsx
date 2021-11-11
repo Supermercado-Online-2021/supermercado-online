@@ -34,8 +34,7 @@ function AccountFavorites( { auth, favorites, loadFavorites, incrementFavorites,
 
             <ListProductContainer>
                 { favorites && favorites.data?.map( (favorite, index) => 
-                    (<FavoriteProduct  
-                        product={favorite.Product} 
+                    (<FavoriteProduct
                         index={index} 
                         cart={(favorite.Product.Carts !== undefined && favorite.Product.Carts?.id !== null) || false}
                     />)

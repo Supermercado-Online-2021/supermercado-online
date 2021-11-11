@@ -4,6 +4,7 @@ import axios from '../../config/axios.config';
 
 import * as CartActions from './actions';
 import * as ProductsActions from './../products/actions';
+import * as FavoritesActions from '../favorites/actions';
 
 import StateCart from '../../types/reduxState/StateCart';
 import Cart from '../../types/reduxState/Cart';
@@ -33,9 +34,8 @@ export const findCartProducts = () =>
     }
 
 export const addProductInCart = (
-    product_id: number, 
-    index?: number
-    // updateProductByIndex: ( index: number, product: Product ) => any
+    product_id: number,
+    updateProductById?: (product: Product) => any
 ) =>
     async (dispatch: ThunkGlobalDispatch, getState: getGlobalState) => {
         const { token } = getState().authentication;
@@ -46,38 +46,45 @@ export const addProductInCart = (
             { headers: { token } }
         );
 
-        if (status === 201 && index ) {
-            dispatch( ProductsActions
-                .updateProductByIndex(index, {
+        if (status === 201) {
+            const updateProduct = updateProductById !== undefined
+                ? updateProductById
+                : ProductsActions.updateProductById
+
+            dispatch( 
+                updateProduct({
                     id: product_id,
                     Carts: data
-                }
-            ));
+                })
+            );
         }
     }
 
 export const removeProductInCart = (
-    id: number, 
-    index?: number
-    // updateProductByIndex: ( index: number, product: Product ) => any
+    cart_id: number,
+    updateProductById?: (product: Product) => any
 ) =>
     async (dispatch: ThunkGlobalDispatch, getState: getGlobalState) => {
         const state = getState();
         const { token } = state.authentication;
         
         const { status, data } = await axios.delete<any, AxiosResponse<Cart>>(
-            `/cart/${id}`,
+            `/cart/${cart_id}`,
             { headers: { token } }
         );
 
-        if (status === 200 && index ) {
-            dispatch( ProductsActions
-                .updateProductByIndex(index, {
+        if (status === 200) {
+            const updateProduct = updateProductById !== undefined
+                ? updateProductById
+                : ProductsActions.updateProductById
+
+            dispatch(
+                updateProduct({
                     id: data.product_id,
                     Carts: undefined
                 })
             );
 
-            dispatch(CartActions.removeCartByIndex(index));
+            dispatch(CartActions.removeCartById(cart_id));
         }
     }

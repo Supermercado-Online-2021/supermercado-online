@@ -14,7 +14,7 @@ export const BuyProduct = styled.button<{ remove?: boolean, size?: number }>`
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: ${({ size }) => size ? size: 16 }px;
+    font-size: ${({ size }) => size ? size: 14 }px;
 
     &:disabled {
         background: #ccc;

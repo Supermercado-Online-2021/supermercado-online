@@ -13,7 +13,7 @@ export interface ActionCart extends Action {
     payload?: StateCart,
     status?: number, 
     cart?: Cart,
-    index?: number
+    id?: number
 }
 
 
@@ -42,7 +42,7 @@ function cartReducer( state: StateCart = INITIAL_ACCOUNT_CART, action: ActionCar
                 data: [ ...state.data, cart ]
             };
         case CartTypes.REMOVE_CART:
-            const update = state.data.filter( (_,i) => i !== action.index )
+            const update = state.data.filter( cart => cart.id !== action.id )
 
             return {
                 ...state,
