@@ -24,8 +24,6 @@ export const setStatus = (status: number): ActionCart => ({
     status
 });
 
-
-
 export const addCart = (cart: Cart) => ({
     type: CartTypes.ADD_CART,
     cart
@@ -34,4 +32,8 @@ export const addCart = (cart: Cart) => ({
 export const removeCartByIndex = (index: number) => ({
     type: CartTypes.REMOVE_CART,
     index
+});
+
+export const resetCart = () => ({
+    type: CartTypes.RESET_CART
 });

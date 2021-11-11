@@ -18,8 +18,15 @@ export const AccountMenuItem = styled.div<{ selected: boolean}>`
     cursor: pointer;
 
     color: ${ ({selected}) => selected ? 'white': '#444' };
-    background: ${ ({selected}) => selected ? '#067BF9': 'white' };
-    border: 3px solid ${ ({selected}) => selected ? '#067BF9': '#eee' };
+
+    background: ${ ({ selected, theme }) => selected 
+        ? theme.colors.primary.main
+        : 'white' 
+    };
+
+    border: 3px solid ${ ({selected, theme}) => selected ? 
+       theme.colors.primary.main : '#eee' 
+    };
 
 
     & + & {
@@ -27,8 +34,8 @@ export const AccountMenuItem = styled.div<{ selected: boolean}>`
     }
 
     &:hover {
-        background: #067BF9;
-        border-color: #067BF9;
-        color: white;
+        background: ${ ({ theme }) => theme.colors.primary.main };
+        border-color: ${ ({ theme }) => theme.colors.primary.main };
+        color: ${ ({ theme }) => theme.colors.primary.highlight };
     }
 `

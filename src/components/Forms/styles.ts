@@ -80,11 +80,11 @@ export const InputWithMask = styled(InputMask)<{ success?: boolean }>`
     };
 
     &:focus {
-        box-shadow: 0 0 5px #067BF9;
+        box-shadow: 0 0 5px ${ ({ theme }) => theme.colors.primary.main };
     }
 
     &:disabled {
-        background: #efefef;
+        background: ${ ({ theme }) => theme.colors.third.main };
     }
 `;
 
@@ -105,14 +105,17 @@ const BaseButton = styled.button`
 `;
 
 export const Button = styled(BaseButton)`
-    border: 2px solid #067BF9;
+    border: 2px solid ${ ({ theme }) => theme.colors.primary.main };
     background: transparent;
-    color: #067BF9;
+    color: ${ ({ theme }) => theme.colors.primary.main };
     font-weight: 600;
     letter-spacing: 1px;
 `;
 
 export const ButtonHighlight = styled(BaseButton)`
-    background: ${ ({ disabled }) => disabled ? '#ccc': '#067BF9' };
+    background: ${ ({ disabled, theme }) => disabled 
+        ? '#ccc'
+        : theme.colors.primary.main };
+
     color: white;
 `;

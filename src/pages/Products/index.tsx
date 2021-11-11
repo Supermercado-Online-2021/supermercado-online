@@ -11,7 +11,7 @@ function Products( { page, limit, getAll }: Props ) {
 
     useEffect( () => {
         getAll();
-    }, [ page, limit ]);
+    }, [page,limit]);
 
     return(
         <TemplateProducts>

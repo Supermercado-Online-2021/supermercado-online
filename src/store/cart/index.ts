@@ -34,13 +34,13 @@ function cartReducer( state: StateCart = INITIAL_ACCOUNT_CART, action: ActionCar
             return {
                 ...state,
                 status: action?.status
-            }
+            };
         case CartTypes.ADD_CART:
             const { cart } = action;
             return {
                 ...state,
                 data: [ ...state.data, cart ]
-            }
+            };
         case CartTypes.REMOVE_CART:
             const update = state.data.filter( (_,i) => i !== action.index )
 
@@ -48,7 +48,9 @@ function cartReducer( state: StateCart = INITIAL_ACCOUNT_CART, action: ActionCar
                 ...state,
                 data: update,
                 count: update.length
-            }
+            };
+        case CartTypes.RESET_CART:
+            return INITIAL_ACCOUNT_CART;
         default:
             return state;
     }

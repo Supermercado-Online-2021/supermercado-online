@@ -26,6 +26,7 @@ import AccountAddresses from '../pages/AccountAddresses';
 import AccountAddressesRegister from '../pages/AccountAddressesRegister';
 import AccountCart from '../pages/AccountCart';
 import Loading from '../pages/Loading';
+import AccountUserUpdate from '../pages/accountUserUpdate';
 
 
 
@@ -33,7 +34,7 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
 
     useEffect(() => {
         tokenAuthentication();
-    }, [tokenAuthentication]);
+    }, []);
 
     useEffect(() => {
         auth
@@ -45,7 +46,7 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
 
     return (<>
         {loading && <Loading />}
-        {loading === false && <BrowserRouter>
+        <BrowserRouter>
             <Switch>
                 <Route exact path="/signin">
                     {auth ? <Redirect to="/" /> : <SignIn />}
@@ -63,12 +64,15 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
                 <Route exact path="/products/name/:name">
                     <ProductsByName />
                 </Route>
-                <Route exact path="/products/category/:id">
+                <Route exact path="/products/category/:id/:name">
                     <ProductsByCategory />
                 </Route>
                 
                 <Route exact path="/account">
                     <Account />
+                </Route>
+                <Route exact path="/account/update">
+                    <AccountUserUpdate />
                 </Route>
                 <Route exact path="/account/favorites">
                     <AccountFavorites />
@@ -86,7 +90,7 @@ function Routes({ auth, token, loading, tokenAuthentication }: Props) {
                     <AccountCart />
                 </Route>
             </Switch>
-        </BrowserRouter>}
+        </BrowserRouter>
     </>);
 }
 

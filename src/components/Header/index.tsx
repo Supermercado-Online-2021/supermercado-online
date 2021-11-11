@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { FaUser, FaHeart, FaCartPlus, FaBars, FaSearch } from 'react-icons/fa';
 
@@ -15,27 +15,41 @@ import {
     TransparentButton
 } from './styles'
 
+import DropDownMenu from '../DropDownMenu';
 import DropDown from '../DropDown';
-import DropDownAuthentication from '../DropDown/DropDownAuthenticated';
+import DropDownAuthenticated from '../DropDown/DropDownAuthenticated';
 
 
 
-function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
+function Header( { auth, view, match, loadSuggestions, loadCategories, clearSuggestions }: Props ) {
     const [ name, setName ] = useState<string>("");
     const [ visible, setVisible ] = useState<boolean>(false);
+    const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
 
 
 
     useEffect( () => {
+        loadCategories();
+    }, []); 
+
+    useEffect( () => {
+        setVisibleMenu(false);
+    }, [match.params]);
+
+    useEffect( () => {
         if(name.length >= 3)
-            loadingSuggestions(name);
-    }, [name, loadingSuggestions]);
+            loadSuggestions(name);
+    }, [name, loadSuggestions]);
+
+
 
     const onSubmitSearchProductName = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         window.location.href=`/products/name/${name}`
     }
+
+
 
     return(
         <HeaderContainer>
@@ -58,7 +72,7 @@ function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
 
                         onChange={e => setName(e.target.value)} 
                         onBlur={() => clearSuggestions() }
-                        onFocus={ () => loadingSuggestions(name) }
+                        onFocus={ () => loadSuggestions(name) }
                     />
                     <TransparentButton>
                         <FaSearch size={18} color="white" />
@@ -68,7 +82,7 @@ function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
                 </SearchProductContainer>}
 
                 { (view === true || view === undefined ) && <ListIcons>
-                    <IconContainer>
+                    <IconContainer style={{ position: "relative"}} >
                         <Link to='/account'>
                             <FaUser size={18} 
                                 onMouseEnter={ () => setVisible(true) }
@@ -76,7 +90,7 @@ function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
                             />
                         </Link>
 
-                        { auth && <DropDownAuthentication visible={visible} /> }
+                        { auth && <DropDownAuthenticated visible={visible} /> }
                         { auth === false && <DropDown visible={visible} /> }
                     </IconContainer>
 
@@ -93,7 +107,11 @@ function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
                     </IconContainer>}
 
                     <IconContainer>
-                        <FaBars size={18} />
+                        <FaBars 
+                            size={18} 
+                            onClick={ () => setVisibleMenu( old => !old )} 
+                        />
+                        <DropDownMenu visible={visibleMenu} />
                     </IconContainer>
                 </ListIcons>}
             </HeaderNavigation>
@@ -101,4 +119,4 @@ function Header( { auth, view, loadingSuggestions, clearSuggestions }: Props ) {
     );
 }
 
-export default connector(Header);
+export default connector(withRouter(Header));

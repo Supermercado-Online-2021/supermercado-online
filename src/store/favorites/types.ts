@@ -4,3 +4,5 @@ export const RESET_FAVORITES = "@@favorites/reset_favorites";
 
 export const REMOVE_FAVORITE = "@@favorites/remove_favorite";
 export const INCREMENT_FAVORITE = "@@favorites/increment_favorite";
+
+export const UPDATE_FAVORITE_PRODUCT = "@@favorites/update_favorite_product";

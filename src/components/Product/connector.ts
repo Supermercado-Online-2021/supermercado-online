@@ -6,6 +6,7 @@ import Product from '../../types/objects/Product';
 
 import * as ThunksCart from '../../store/cart/thunks';
 import * as ThunksFavorite from '../../store/favorites/thunks';
+import * as ActionsProducts from '../../store/products/actions';
 
 
 
@@ -15,13 +16,13 @@ const mapStateToProps = (state: GlobalState) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
     toggleFavorite: (id: number, index: number ) => 
-        dispatch(ThunksFavorite.toggleFavoriteProduct(id,index) ),
+        dispatch( ThunksFavorite.toggleFavoriteProduct(id,index) ),
         
     addProductInCart: (product_id: number, index: number) => 
-        dispatch(ThunksCart.addProductInCart(product_id, index) ),
+        dispatch( ThunksCart.addProductInCart(product_id, index, ActionsProducts.updateProductByIndex ) ),
 
     removeProductInCart: (id: number, index: number) =>
-        dispatch(ThunksCart.removeProductInCart(id, index)) 
+        dispatch( ThunksCart.removeProductInCart(id, index, ActionsProducts.updateProductByIndex )) 
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

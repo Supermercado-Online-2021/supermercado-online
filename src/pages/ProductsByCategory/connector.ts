@@ -1,20 +1,28 @@
 
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import findAllProductsByCategory from '../../store/products/thunks/findAllProductsByCategory';
+import { findProducts } from '../../store/products/thunks';
+import GlobalState from '../../types/reduxState/GlobalState';
 
 
+
+
+const mapStateToProps = (state: GlobalState) => ({
+    page: state.products.page,
+    limit: state.products.limit
+});
 
 const mapDispatchProps = (dispatch:any) => ({ 
-    loadProducts: (id:number) => dispatch( findAllProductsByCategory(id) )
+    loadProducts: (id:number) => dispatch( findProducts(`/products/category/${id}`) )
  });
 
-const connector = connect( undefined, mapDispatchProps );
+const connector = connect( mapStateToProps, mapDispatchProps );
 
 
 
 interface MatchParams {
-    id: string
+    id: string,
+    name: string
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

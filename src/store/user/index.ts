@@ -7,6 +7,7 @@ import { INITIAL_ACCOUNT_USER } from '../initialState';
 import * as UserTypes from './types';
 
 
+
 type ActionUser = Action & User;
 
 function userReducer( state: User = INITIAL_ACCOUNT_USER, action: ActionUser  ) {
@@ -21,6 +22,8 @@ function userReducer( state: User = INITIAL_ACCOUNT_USER, action: ActionUser  ) 
                 birthday: action.birthday,
                 phone: action.phone
             }
+        case UserTypes.RESET_USER:
+            return INITIAL_ACCOUNT_USER
         default: 
             return state;
     }

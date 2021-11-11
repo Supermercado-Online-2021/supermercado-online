@@ -1,6 +1,4 @@
 
-import { useState } from 'react';
-
 import { FaCartPlus, FaTrash } from 'react-icons/fa';
 
 import Product from '../../types/objects/Product';

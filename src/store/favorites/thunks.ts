@@ -6,7 +6,7 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import * as FavoritesAction from './actions';
-import ProductsAction from '../products/actions';
+import * as ActionsProducts from '../products/actions';
 
 import Favorites from '../../types/reduxState/Favorites';
 import GlobalState from '../../types/reduxState/GlobalState';
@@ -16,16 +16,20 @@ import GlobalState from '../../types/reduxState/GlobalState';
 
 export const findFavoritesProducts = () =>
     async (dispatch: ThunkDispatch<GlobalState, void, AnyAction>, getState: () => GlobalState) => {
+        console.log('loading products')
+        
         try {
             const state = getState();
             const { token } = state.authentication;
+
+            console.log( state, token );
 
             const { data } = await axios.get<Favorites>(`/favorites/user/`, {
                 headers: { token },
                 params: {
                     page: state.account?.favorites?.page || 1,
                     limit: state.account?.favorites?.limit || 10,
-                    fields: ['id', 'name', 'image_src']
+                    fields: ['id', 'name', 'image_src' ]
                 }
             });
 
@@ -44,7 +48,7 @@ export const toggleFavoriteProduct = (id: number, index: number) =>
             const { data }: AxiosResponse<any> = await axios
                 .post<any, any>(`/favorites/product/${id}`, {}, { headers: { token } });
 
-            dispatch(ProductsAction
+            dispatch(ActionsProducts
                 .updateProductByIndex(index, { id, Favorites: data }));
         }catch(e) {
             const err = e as AxiosError<{ message: string }>;

@@ -1,7 +1,9 @@
 
 import { ActionFavorite } from '.';
-import Favorite from '../../types/objects/Favorite';
+
+import Product from '../../types/objects/Product';
 import Favorites from '../../types/reduxState/Favorites';
+import { INITIAL_ACCOUNT_FAVORITES } from '../initialState';
 
 import * as FavoritesTypes from './types';
 
@@ -16,6 +18,12 @@ export const setFavorites = (favorites: Favorites): ActionFavorite => ({
         offset: favorites.offset,
         limit: favorites.limit
     }
+});
+
+export const updateProductByIndex = ( index: number, product: Product ) => ({
+    type: FavoritesTypes.UPDATE_FAVORITE_PRODUCT,
+    index,
+    product
 });
 
 export const resetFavorites = () => ({

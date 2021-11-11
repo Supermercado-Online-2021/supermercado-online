@@ -4,6 +4,7 @@ import User from "../../types/objects/User"
 import * as AccountTypes from './types';
 
 
+
 export const setUser = ( user: User ) => {
     return {
         type: AccountTypes.SET_USER,
@@ -15,3 +16,7 @@ export const setUser = ( user: User ) => {
         phone: user.phone
     }
 }
+
+export const resetUser = () => ({
+    type: AccountTypes.RESET_USER
+});

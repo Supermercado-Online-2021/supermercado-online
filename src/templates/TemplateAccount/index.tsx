@@ -7,7 +7,6 @@ import { Container } from '../../components/Main';
 
 import connector, { Props } from "./connector";
 import { Title, SubTitle, Paragraph, ClickHere } from './styles';
-import { Link } from 'react-router-dom';
 
 
 
